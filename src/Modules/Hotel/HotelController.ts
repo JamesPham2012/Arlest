@@ -1,6 +1,8 @@
-import { Body, Controller, Delete, Get, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Post, Put, UseGuards } from '@nestjs/common';
+import { TestGuard } from 'src/common/Guards/TestGuard';
 import {createRoomDTO} from "./HotelDTO";
 @Controller('hotel')
+@UseGuards(new TestGuard)
 export class HotelController {
   @Get('/')
   greeting(): string {
