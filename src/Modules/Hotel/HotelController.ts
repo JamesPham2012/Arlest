@@ -1,6 +1,10 @@
 import { Body, Controller, Delete, Get, Post, Put, UseGuards } from '@nestjs/common';
+import { sleep } from 'src/common/boilerplateFunctions/sleep';
 import { TestGuard } from 'src/common/Guards/TestGuard';
 import {createRoomDTO} from "./HotelDTO";
+
+
+
 @Controller('hotel')
 @UseGuards(new TestGuard)
 export class HotelController {
@@ -16,16 +20,19 @@ export class HotelController {
 
   @Post('/rooms') //actually not, this is to create a new room, provided a room type and room ID
   async addRoom(@Body() abody:createRoomDTO) {
+    console.log("Doing shiets");
+    await sleep(1000)
     return `Received request to add a new room with ${JSON.stringify(abody)} and with data ${abody.RoomID}`;
   }
   @Put('/rooms') //actually not, this is to modify a room info, provided a new room type and room ID
-   modify(@Body('RoomID') RoomId, @Body('RoomType') RoomType,): string{
+   modify(@Body('RoomID') RoomId, @Body('RoomType') RoomType): string{
     return `Received request to modify room ${RoomId} to type ${RoomType} `;
   }
   @Delete('/rooms') // well 
    delRoom(@Body('RoomId') RoomId):String{
        return `received request to delete  room  ${RoomId} from records`
-   }
-
-   
+   }   
 }
+
+
+
