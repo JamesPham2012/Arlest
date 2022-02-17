@@ -14,4 +14,7 @@ export class BookingOrder {
     @Column()
     TestColumn: number
 
+    @Column()
+    TestColumn2: number
+
 }
