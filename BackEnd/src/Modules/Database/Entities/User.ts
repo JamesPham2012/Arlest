@@ -13,4 +13,7 @@ export class User {
 
   @Column({ unique: true })
   passport: string;
+
+
+  
 }

@@ -1,11 +1,17 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany, PrimaryColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany, PrimaryColumn, OneToOne, JoinColumn, ManyToOne } from 'typeorm';
 import { Room } from './Room';
-@Entity()
+import { User } from './User';
+@Entity("BookingOrderTable")
 export class BookingOrder {
- @PrimaryColumn()
- RoomID:number;
+    @ManyToOne(type => User, { primary: true })
+    @JoinColumn({ name: "UserID" })
+    User: User;
 
- @PrimaryColumn()
- UserID:number;
+    @OneToOne(type => Room, { primary: true })
+    @JoinColumn({ name: "RoomID" })
+    Room:Room;
+
+    @Column()
+    TestColumn: number
 
 }
