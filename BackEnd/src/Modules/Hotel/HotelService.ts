@@ -1,15 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { type } from 'os';
 import { getConnection } from 'typeorm';
 import { Room } from '../Database/Entities/Room';
-import { RoomTypeDetails } from '../Database/Entities/RoomTypeDetails';
-import { getRoomDTO } from './HotelDTO';
 
 
 @Injectable()
 export class HotelService {
     async getAllRooms(){
-        var res = []
         var query = await getConnection().getRepository(Room).createQueryBuilder('Room').innerJoinAndSelect("Room.RoomType","roomlist").getMany()
         console.log(query,typeof(query))
         return query
@@ -43,7 +39,7 @@ export class HotelService {
         catch(err){
             return err.message
         }
-        return query
+        return query.affected
     }
 
     async delRoom(){
@@ -58,6 +54,6 @@ export class HotelService {
         catch(err){
             return err.message
         }
-        return query
+        return query.affected
     }
 }
