@@ -11,10 +11,5 @@ export class BookingOrder {
     @JoinColumn({ name: "RoomID" })
     Room:Room;
 
-    @Column()
-    TestColumn: number
-
-    @Column()
-    TestColumn2: number
-
+  
 }

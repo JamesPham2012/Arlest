@@ -6,10 +6,9 @@
     "password": "admin",
     "database": "BookingRDBMS",
     "entities": ["dist/Modules/Database/Entities/*.js"],
-    "migrationsTableName": "migTable",
     "migrations": ["dist/Modules/Database/Migrations/*.js"],
     "cli": {
-        "migrationsDir": "./Migrations"
+        "migrationsDir": "dist/Modules/Database/Migrations"
     },
     "synchronize":false
   }
