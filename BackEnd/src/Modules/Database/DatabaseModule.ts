@@ -10,9 +10,7 @@ import { User } from './Entities/User';
 
 
 @Module({
-  imports:[
-      TypeOrmModule.forRoot()
-  ]
+  imports:[TypeOrmModule.forRoot()]
 })
 export class DatabaseModule {
 }
