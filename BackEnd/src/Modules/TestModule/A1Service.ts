@@ -4,12 +4,10 @@ import { HotelService } from "../Hotel/HotelService";
 import { UserModule } from "../User/UserModule";
 import { UserService } from "../User/UserService";
 
-
-
-interface LooseObject {
-    [key: string]: any
-}
-
+import {LooseObject} from '../../common/commonInterfaces'
+import { UserSeedFactory } from "../Database/Seed/CustomSeeder/UserSeedFactory";
+import { CustomeSeederScript1 } from "../Database/Seed/CustomSeeder/CustomeSeederScript1";
+import { warn } from "console";
 
 
 
@@ -18,30 +16,29 @@ export class A1Service{
     constructor(private userService :UserService, private hotelService: HotelService){}
     async clearDB() {
         const entities = getConnection().entityMetadatas;
-        for (const entity of entities) {
-            console.log(entity)
-            const repository = await getConnection().getRepository(entity.name);
-            await repository.query(`TRUNCATE ${entity.tableName} RESTART IDENTITY CASCADE;`);
-            console.log(entity)
+        try{
+            for (const entity of entities) {
+                console.log("clearing "+entity.name)
+                const repository =  getConnection().getRepository(entity.name);
+                await repository.query(`TRUNCATE ${entity.tableName} RESTART IDENTITY CASCADE;`);
+            }
         }
+        catch (err){
+            console.log(err.message)
+        }
+        return "cleared database"
       }
-    dropall(){
-
-    }
-
-
     async massGen(){
-        var UserNames=[["John","Smoth","12210027812"],["Leonardo","Wayne","39921777719"],["Henry","The Eighth","8762312731721"]]
-        var RoomTypes=[20,30,40,50]
-        var Rooms = [1,2,1,1,1,4,2]
-        var BookingOrders= [[1,3],[2,4]]
-        for (var i=0;i<UserNames.length;i++){
-            var cur = UserNames[i]
-            let dummy:LooseObject={};
-            dummy.firstName=cur[0];
-            dummy.lastName=cur[1];
-            dummy.passport=cur[2];
-            this.userService.addUser(dummy)
+        var seedFactory=new CustomeSeederScript1()
+        var userSeeds=seedFactory.createUserSeed()
+        for (const seed of userSeeds){
+            try{
+                await this.userService.addUser(seed)
+            }
+            catch (err){
+                console.log(err.message)
+            }
+           
         }
     }
     

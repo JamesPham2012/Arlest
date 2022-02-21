@@ -1,6 +1,6 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import { Room } from './Room';
-@Entity("RoomTypeDetailsTable")
+@Entity()
 export class RoomTypeDetails {
   @PrimaryGeneratedColumn()
   id: number

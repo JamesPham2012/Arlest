@@ -1,9 +1,8 @@
-import { RoutesMapper } from '@nestjs/core/middleware/routes-mapper';
-import { type } from 'os';
+
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from 'typeorm';
 import { RoomTypeDetails } from './RoomTypeDetails';
 
-@Entity("RoomTable")
+@Entity()
 export class Room {
   @PrimaryGeneratedColumn()
   RoomID: number;

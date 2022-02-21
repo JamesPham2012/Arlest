@@ -2,13 +2,13 @@ import { Injectable } from '@nestjs/common';
 import { getConnection } from 'typeorm';
 import { BookingOrder } from '../Database/Entities/BookingOrder';
 import { Room } from '../Database/Entities/Room';
-import { User } from '../Database/Entities/User';
+import { UserEntity } from '../Database/Entities/UserEntity';
 
 
 @Injectable()
 export class UserService{
     async getAllUser() {
-        var query = await getConnection().getRepository(User).createQueryBuilder('user').getMany()
+        var query = await getConnection().getRepository(UserEntity).createQueryBuilder('user').getMany()
         console.log(query,typeof(query))
         return query    }
     async addUser(dummy_body=null) {
@@ -20,7 +20,7 @@ export class UserService{
             }
         }
         try {
-            var query=  getConnection().createQueryBuilder().insert().into(User).values(
+            var query=  getConnection().createQueryBuilder().insert().into(UserEntity).values(
                 { firstName: `${dummy_body.firstName}`,
                   lastName: `${dummy_body.lastName}`,
                   passport: `${dummy_body.passport}`}
@@ -35,7 +35,7 @@ export class UserService{
         var dummy_body={
             "UserID":"1"
         }
-        var query = await getConnection().createQueryBuilder().delete().from(User).where(`UserID=${dummy_body.UserID}`).execute()
+        var query = await getConnection().createQueryBuilder().delete().from(UserEntity).where(`UserID=${dummy_body.UserID}`).execute()
         return query.affected
     }
     async modifyUser() {
@@ -45,7 +45,7 @@ export class UserService{
             "lastName":"Dunno",
         }
         try {
-            var query= await getConnection().createQueryBuilder().update(User).set(
+            var query= await getConnection().createQueryBuilder().update(UserEntity).set(
                 {
                     firstName:`${dummy_body.firstName}`,
                     lastName:`${dummy_body.lastName}`,
