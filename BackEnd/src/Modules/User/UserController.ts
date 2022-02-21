@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Post, Put, UseGuards } from '@nestjs/common';
+import {  Controller, Delete, Get, Post, Put, UseGuards } from '@nestjs/common';
 import { TestGuard } from 'src/common/Guards/TestGuard';
 import { UserService } from './UserService';
 
@@ -7,7 +7,6 @@ import { UserService } from './UserService';
 @UseGuards(new TestGuard)
 export class UserController {
   constructor(private service:UserService){}
-  
   @Get('/') 
   async getAllUser()  {
     return await this.service.getAllUser();
@@ -27,6 +26,11 @@ export class UserController {
   async delUser(){
     return await this.service.delUser();
   }   
+
+  @Get('/book')
+  async book(){
+    return await this.service.bookRoom()
+  }
 }
 
 
