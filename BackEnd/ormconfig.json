@@ -7,6 +7,7 @@
     "database": "BookingRDBMS",
     "entities": ["dist/Modules/Database/Entities/*.js"],
     "migrations": ["dist/Modules/Database/Migrations/*.js"],
+    "migrationsTableName": "Migration_History",
     "cli": {
         "migrationsDir": "dist/Modules/Database/Migrations"
     },
